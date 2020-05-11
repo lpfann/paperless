@@ -60,7 +60,7 @@ if _allowed_hosts:
     ALLOWED_HOSTS = _allowed_hosts.split(",")
 
 FORCE_SCRIPT_NAME = os.getenv("PAPERLESS_FORCE_SCRIPT_NAME")
-    
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -109,7 +109,7 @@ MIDDLEWARE = [
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # We allow CORS from localhost:8080
-CORS_ORIGIN_WHITELIST = tuple(os.getenv("PAPERLESS_CORS_ALLOWED_HOSTS", "localhost:8080").split(","))
+CORS_ORIGIN_WHITELIST = tuple(os.getenv("PAPERLESS_CORS_ALLOWED_HOSTS", "http://localhost:8080,https://localhost:8080").split(","))
 
 # If auth is disabled, we just use our "bypass" authentication middleware
 if bool(os.getenv("PAPERLESS_DISABLE_LOGIN", "false").lower() in ("yes", "y", "1", "t", "true")):
@@ -334,3 +334,6 @@ for t in json.loads(os.getenv("PAPERLESS_FILENAME_PARSE_TRANSFORMS", "[]")):
 # well. Set to 0 to disable this filter.
 PAPERLESS_RECENT_CORRESPONDENT_YEARS = int(os.getenv(
     "PAPERLESS_RECENT_CORRESPONDENT_YEARS", 0))
+
+# Specify the filename format for out files
+PAPERLESS_FILENAME_FORMAT = os.getenv("PAPERLESS_FILENAME_FORMAT")
